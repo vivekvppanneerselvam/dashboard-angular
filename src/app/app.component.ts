@@ -12,6 +12,17 @@ export class AppComponent {
   title = 'dashboard-app';
 
   constructor(private dashboardService: DashboardService){}
+  rowData = [
+    {
+      "January":1,
+      "February":60,
+      "March":50,
+      "April":20,
+      "May":1150,
+      "June":100,
+      "July":25	
+    }   
+  ];
   ngOnInit() { 
     this.onLoadData();
   }
@@ -25,17 +36,7 @@ export class AppComponent {
     { headerName: 'July', field: 'July' }
   ];
 
-  rowData = [
-    {
-      "January":1,
-      "February":60,
-      "March":50,
-      "April":20,
-      "May":1150,
-      "June":100,
-      "July":25	
-    }   
-  ];
+  
 
   public SystemName: string = "MF1";
   firstCopy = false;
@@ -68,7 +69,7 @@ export class AppComponent {
   onLoadData(){    
   this.dashboardService.getData().subscribe(
     response =>{ console.log(response._body)
-      this.rowData = response._body;
+      this.rowData = JSON.parse(response._body);
     },
     error => {  console.log("Error"+error); 
    });
